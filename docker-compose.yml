@@ -22,8 +22,8 @@ services:
       DB_DATABASE: ${DB_DATABASE}
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
-    ports:
-      - "8080:80"
+    expose:
+      - "80"
     networks:
       - dvwa_net
   nginx:
