@@ -1,0 +1,33 @@
+services:
+  db:
+    image: mysql:latest
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: dvwa_root_password
+      MYSQL_DATABASE: dvwa
+      MYSQL_USER: dvwa
+      MYSQL_PASSWORD: dvwa_password
+    expose:
+      - "3306"
+    networks:
+      - dvwa_net
+
+  dvwa:
+    image: vulnerables/web-dvwa
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      DB_SERVER: db
+      DB_DATABASE: dvwa
+      DB_USERNAME: dvwa
+      DB_PASSWORD: dvwa_password
+    ports:
+      - "8080:80"
+    networks:
+      - dvwa_net
+
+networks:
+  dvwa_net:
+    name: dvwa_net
+    driver: bridge
